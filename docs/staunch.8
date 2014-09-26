@@ -1,0 +1,97 @@
+'\" t
+.TH "STAUNCH" "8" "staunch 8" "staunch"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+staunch \- Secure Tizen Launcher
+
+.SH "SYNOPSIS"
+.\"HP \w'\fBstaunch\fR\ 'u
+\fBstaunch\fR --set [--force] appID appPATH linkPATH
+
+\fBstaunch\fR --get links...
+
+\fBstaunch\fR --check [--quiet] links...
+
+
+.SH "DESCRIPTION"
+.PP
+The secure Tizen Launcher is a transparent way to set the correct
+runtime environnement for a binary application.
+Creating a launcher link permits to set Smack context and the
+groups needed by the privilege attached to \fIappID\fR
+and its Smack context.
+
+The command \fBstaunch\fR has three purposes:
+
+(1) with \fI--set\fR, it creates or sets a symbolic link of name
+\fIlinkPATH\fR to execute the application of path \fIappPATH\fR
+with the context of application ID \fIappID\fR;
+
+(2) with \fI--get\fR, it lists the application id and path that
+were set to the given symbolic \fIlinks\fR;
+
+(3) with \fI--check\fR, it checks that the given symbolic \fIlinks\fR
+are valid.
+
+.SH "OPTIONS"
+.PP
+The following options are understood:
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Prints a help message\&.
+.RE
+.PP
+\fB\-s\fR, \fB\-\-set\fR
+.RS 4
+Set the link\&.
+.RE
+.PP
+\fB\-f\fR, \fB\-\-force\fR
+.RS 4
+Force creation of the link, overwriting an existing one if necessary\&.
+.RE
+.PP
+\fB\-g\fR, \fB\-\-get\fR
+.RS 4
+Get the data of the links\&.
+.RE
+.PP
+\fB\-c\fR, \fB\-\-check\fR
+.RS 4
+Check the links\&.
+.RE
+.PP
+\fB\-q\fR, \fB\-\-quiet\fR
+.RS 4
+Dont print the diagnostic, only emit the exit code\&.
+.RE
+
+
+.SH "SEE ALSO"
+.PP
+
+.SH "NOTES"
+.IP " 1." 4
+Creative Commons Attribution\-ShareAlike 3.0 Unported
+.RS 4
+\%http://creativecommons.org/licenses/by-sa/3.0/
+.RE
