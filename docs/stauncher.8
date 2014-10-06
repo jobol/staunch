@@ -20,23 +20,60 @@
 .\" * MAIN CONTENT STARTS HERE *
 .\" -----------------------------------------------------------------
 .SH "NAME"
-staunch \- Secure Tizen Launcher
+stauncher \- Secure Tizen Launch Manager
+
+.SH "SYNOPSIS"
+.\"HP \w'\fBstauncher\fR\ 'u
+\fBstauncher\fR set [--force] appID appPATH linkPATH
+
+\fBstauncher\fR get links...
+
+\fBstauncher\fR check [--quiet] links...
+
 
 .SH "DESCRIPTION"
 .PP
-The secure Tizen Launcher is a transparent way to set the correct
-runtime environnement for a binary application.
+The secure Tizen Launch Manager sets or checks the correct
+launcher link of binary applications.
 Creating a launcher link permits to set Smack context and the
 groups needed by the privilege attached to \fIappID\fR
 and its Smack context.
 
-This launcher is called through a symbolic link created using
-\fBstauncher\fR(8).
+The command \fBstauncher\fR has three purposes:
+
+(1) with \fIset\fR, it creates or sets a symbolic link of name
+\fIlinkPATH\fR to execute the application of path \fIappPATH\fR
+with the context of application ID \fIappID\fR;
+
+(2) with \fIget\fR, it lists the application id and path that
+were set to the given symbolic \fIlinks\fR;
+
+(3) with \fIcheck\fR, it checks that the given symbolic \fIlinks\fR
+are valid.
+
+.SH "OPTIONS"
+.PP
+The following options are understood:
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Prints a help message\&.
+.RE
+.PP
+\fB\-f\fR, \fB\-\-force\fR
+.RS 4
+Force creation of the link, overwriting an existing one if necessary\&.
+.RE
+.PP
+\fB\-q\fR, \fB\-\-quiet\fR
+.RS 4
+Dont print the diagnostic, only emit the exit code\&.
+.RE
 
 
 .SH "SEE ALSO"
 .PP
-\fBstauncher\fR(8).
+\fBstaunch\fR(8)
 
 .SH "NOTES"
 .IP " 1." 4
