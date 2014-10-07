@@ -34,5 +34,5 @@ make %{?_smp_mflags}
 
 %files
 %manifest %{name}.manifest
-%{_bindir}/staunch
-%{_sbindir}/stauncher
+%attr(0711, root, system) %{_bindir}/staunch
+%attr(0710, root, system) %{_sbindir}/stauncher

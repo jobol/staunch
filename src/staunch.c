@@ -23,7 +23,7 @@ main (int argc, char **argv, char **env)
   int sts;
 
   /* get the data */
-  sts = read_symlink_data (argv[0]);
+  sts = read_symlink_data (argv[0], 1);
   if (sts)
     return 1;
 

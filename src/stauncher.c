@@ -111,7 +111,7 @@ set (int argc, char **argv)
     }
 
   /* control the setting */
-  sts = read_all_symlink_data (link);
+  sts = read_all_symlink_data (link, 1);
   if (sts != 0)
     message (LOG_CRIT, "Unable to read the written data: %m");
   else
@@ -150,13 +150,19 @@ static int
 get (char **links)
 {
   int sts;
+  int quiet;
+
+  quiet = !strcmp (*links, "-q") || !strcmp (*links, "--quiet");
+  if (quiet)
+    links++;
+
   while (*links != NULL)
     {
-      sts = read_symlink_data (*links);
-      if (sts)
-	fprintf (stderr, "error %s\n", *links);
-      else
+      sts = read_symlink_data (*links, 0);
+      if (!sts)
 	printf ("%s: %s %s\n", *links, read_app_id, read_app_path);
+      else if (!quiet)
+	fprintf (stderr, "error %s\n", *links);
       links++;
     }
   return 0;
@@ -182,7 +188,7 @@ check (char **links)
 	msg = "ERROR(doesn't exist)";
       else if (1 != is_a_symlink (*links))
 	msg = "ERROR(isn't a link)";
-      else if (0 != read_all_symlink_data (*links))
+      else if (0 != read_all_symlink_data (*links, 0))
 	msg = "ERROR(isn't a valid staunch link)";
       else if (0 != strcmp (read_target, launcher))
 	msg = "ERROR(isn't linked to launcher)";

@@ -23,7 +23,7 @@ const char *read_target;
 
 /* parse data of the buffer */
 static int
-parse_buffer_data ()
+parse_buffer_data (int verbose)
 {
   int pos1, pos2;
 
@@ -32,7 +32,8 @@ parse_buffer_data ()
   sscanf (buffer, STAUNCH_READ_FORMAT, &pos1, &pos2);
   if (!pos1 || !pos2)
     {
-      message (LOG_CRIT, "Error while buffer \"%s\"", buffer);
+      if (verbose)
+        message (LOG_CRIT, "Error while buffer \"%s\"", buffer);
       return -1;
     }
 
@@ -45,7 +46,7 @@ parse_buffer_data ()
 
 /* read the link data */
 int
-read_symlink_data (const char *path)
+read_symlink_data (const char *path, int verbose)
 {
   ssize_t len;
 
@@ -53,29 +54,31 @@ read_symlink_data (const char *path)
   len = lgetxattr (path, STAUNCH_XATTR_NAME, buffer, sizeof buffer - 1);
   if (len < 0)
     {
-      message (LOG_CRIT, "Error while reading attribute %s of %s: %m",
+      if (verbose)
+        message (LOG_CRIT, "Error while reading attribute %s of %s: %m",
 	       STAUNCH_XATTR_NAME, path);
       return -1;
     }
   buffer[len] = 0;
 
-  return parse_buffer_data ();
+  return parse_buffer_data (verbose);
 }
 
 /* read all the link data */
 int
-read_all_symlink_data (const char *path)
+read_all_symlink_data (const char *path, int verbose)
 {
   ssize_t len;
 
   len = readlink (path, target, sizeof target - 1);
   if (len < 0)
     {
-      message (LOG_CRIT, "Error while reading link value of %s: %m", path);
+      if (verbose)
+        message (LOG_CRIT, "Error while reading link value of %s: %m", path);
       return -1;
     }
   target[len] = 0;
   read_target = target;
 
-  return read_symlink_data (path);
+  return read_symlink_data (path, verbose);
 }
