@@ -28,7 +28,8 @@ main (int argc, char **argv, char **env)
     return 1;
 
 #if defined(MAKE_EXEC_CHECK)
-  /* check executable status. This is not mandatory because else execve will fail. */
+  /* check executable status. */
+  /* This is not mandatory because else execve will fail. */
   sts = is_an_executable (read_app_path);
   if (!sts)
     message (LOG_CRIT, "Error, can't exec %s", read_app_path);
@@ -58,6 +59,7 @@ main (int argc, char **argv, char **env)
 #endif
 
   /* launch */
+  umask(077); /* drop read/write/execute when creating files and directories */
   execve (read_app_path, argv, env);
   message (LOG_CRIT, "Error when executing %s: %m", read_app_path);
   return 1;
