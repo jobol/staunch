@@ -27,8 +27,8 @@ make %{?_smp_mflags}
 %make_install
 
 %post
-/sbin/setcap cap_mac_admin,cap_setgid=+pe-i %{_bindir}/staunch
-/sbin/setcap cap_mac_admin,cap_sys_admin,cap_setgid=+pe-i %{_sbindir}/stauncher
+/sbin/setcap cap_mac_admin,cap_setgid,cap_setpcap=pe %{_bindir}/staunch
+/sbin/setcap cap_mac_admin,cap_sys_admin,cap_setgid=pe %{_sbindir}/stauncher
 
 %docs_package
 
